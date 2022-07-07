@@ -1,0 +1,21 @@
+          var url = "https://reqbin.com/echo/post/form";
+
+          var httpRequest = (HttpWebRequest)WebRequest.Create(url);
+          httpRequest.Method = "POST";
+
+          httpRequest.ContentType = "application/x-www-form-urlencoded";
+
+          var data = "key1=value1&key2=value2";
+
+          using (var streamWriter = new StreamWriter(httpRequest.GetRequestStream()))
+          {
+              streamWriter.Write(data);
+          }
+
+          var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
+          using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+          {
+              var result = streamReader.ReadToEnd();
+          }
+
+          Console.WriteLine(httpResponse.StatusCode);
